@@ -2,15 +2,17 @@
 using System;
 using System.Linq;
 
+//Main entry of the program
 class Program
 {
+    //start of the game
     static void Main()
     {
         Game game = new Game();
         game.Start();
     }
 }
-
+//Represents the position 
 class Position
 {
     public int X { get; set; }
@@ -21,20 +23,20 @@ class Position
         Y = y;
     }
 }
-
+//Represents a player
 class Player
 {
     public string Name { get; set; }
     public Position Position { get; set; }
     public int GemCount { get; set; }
-
+    //contructor to initialize the game
     public Player(string name, Position startPosition)
     {
         Name = name;
         Position = startPosition;
         GemCount = 0;
     }
-
+    // Represents the direction 
     public void Move(char direction)
     {
         switch (direction)
@@ -91,7 +93,7 @@ class Board
             Grid[obsX, obsY].Occupant = "O";
         }
     }
-
+/*
     public void Display()
     {
         for (int i = 0; i < 6; i++)
@@ -188,3 +190,5 @@ class Game
         else Console.WriteLine("It's a tie!");
     }
 }
+  
+    
