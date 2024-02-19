@@ -93,7 +93,7 @@ class Board
             Grid[obsX, obsY].Occupant = "O";
         }
     }
-/*
+    // Method to display the current state of the board
     public void Display()
     {
         for (int i = 0; i < 6; i++)
@@ -103,7 +103,7 @@ class Board
             Console.WriteLine();
         }
     }
-
+    // Method to check if a move is valid for a given player in the specified direction
     public bool IsValidMove(Player player, char direction)
     {
         int newX = player.Position.X;
@@ -123,7 +123,7 @@ class Board
 
         return true;
     }
-
+    // Method to collect a gem from the current player's position
     public void CollectGem(Player player)
     {
         if (Grid[player.Position.X, player.Position.Y].Occupant == "G")
