@@ -1,2 +1,3 @@
 # GemHunters-Assignment 2
 coded the gem hunters game basing on the given requirements.
+Started to write the program for the Gem Hunter game Wrtitten the main method and the player position part of the program.Added the comments written few lines of a code to represent the players of the game , Code to give name and position to the player 
