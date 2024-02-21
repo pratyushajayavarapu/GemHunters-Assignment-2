@@ -185,8 +185,8 @@ class Game
 
     public void AnnounceWinner()
     {
-        if (Player1.GemCount > Player2.GemCount) Console.WriteLine("Player 1 Wins!");
-        else if (Player2.GemCount > Player1.GemCount) Console.WriteLine("Player 2 Wins!");
+        if (Player1.GemCount > Player2.GemCount) Console.WriteLine("Player 1 Wins the game!");
+        else if (Player2.GemCount > Player1.GemCount) Console.WriteLine("Player 2 Wins the game!");
         else Console.WriteLine("It's a tie!");
     }
 }
