@@ -1,11 +1,12 @@
 ﻿//GEM HUNTERS ASSIGNMENT 2
+
 using System;
 using System.Linq;
 
 //Main entry of the program
 class Program
 {
-    //start of the game
+    //start game
     static void Main()
     {
         Game game = new Game();
@@ -149,7 +150,7 @@ class Game
         Player2 = new Player("P2", new Position(5, 5));
         CurrentTurn = Player1;
     }
-
+    //start of the game
     public void Start()
     {
         Console.WriteLine("Welcome to Gem Hunters!");
