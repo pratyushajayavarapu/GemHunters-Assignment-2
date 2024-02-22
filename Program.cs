@@ -1,4 +1,4 @@
-﻿//GEM HUNTERS ASSIGNMENT 2
+﻿//GEM HUNTERS ASSIGNMENT-2
 
 using System;
 using System.Linq;
@@ -40,13 +40,24 @@ class Player
     // Represents the direction 
     public void Move(char direction)
     {
+        var position = Position;
+        var newX = position.X;
+        var newY = position.Y;
         switch (direction)
         {
-            case 'U': Position.Y--; break;
-            case 'D': Position.Y++; break;
-            case 'L': Position.X--; break;
-            case 'R': Position.X++; break;
+            case 'U': newX--; break;
+            case 'D': newX++; break;
+            case 'L': newY--; break;
+            case 'R': newY++; break;
         }
+
+        if (newX > 5) newX = 5;
+        if (newY > 5) newY = 5;
+        if (newX < 0) newX = 0;
+        if (newY < 0) newY = 0;
+
+        Position = new Position(newX, newY);
+
     }
 }
 
@@ -112,17 +123,29 @@ class Board
 
         switch (direction)
         {
-            case 'U': newY--; break;
-            case 'D': newY++; break;
-            case 'L': newX--; break;
-            case 'R': newX++; break;
+            case 'U': newX--; break;
+            case 'D': newX++; break;
+            case 'L': newY--; break;
+            case 'R': newY++; break;
             default: return false;
         }
 
-        if (newX < 0 || newX >= 6 || newY < 0 || newY >= 6) return false;  // Check bounds
-        if (Grid[newX, newY].Occupant == "O" || Grid[newX, newY].Occupant == "P1" || Grid[newX, newY].Occupant == "P2") return false;  // Check obstacles and other players
+        if(newX>5) newX = 5;
+        if(newY>5) newY = 5;
+        if(newX<0) newX = 0;
+        if(newY<0) newY = 0;
 
-        return true;
+        //if (newX < 0 || newX >= 6 || newY < 0 || newY >= 6) return false;  // Check bounds
+        //if (Grid[newX, newY].Occupant == "O" || Grid[newX, newY].Occupant == "P1" || Grid[newX, newY].Occupant == "P2") return false;  // Check obstacles and other players
+
+        var isValidMove = Grid[newX, newY].Occupant != "O";
+
+        if (isValidMove)
+        {
+            Grid[player.Position.X, player.Position.Y].Occupant = "-";
+        }
+
+        return isValidMove;
     }
     // Method to collect a gem from the current player's position
     public void CollectGem(Player player)
@@ -130,8 +153,8 @@ class Board
         if (Grid[player.Position.X, player.Position.Y].Occupant == "G")
         {
             player.GemCount++;
-            Grid[player.Position.X, player.Position.Y].Occupant = "-";
         }
+        Grid[player.Position.X, player.Position.Y].Occupant = player.Name;
     }
 }
 
@@ -161,14 +184,19 @@ class Game
             char direction;
             do
             {
-                direction = Char.ToUpper(Console.ReadKey().KeyChar);
-                Console.WriteLine();
-            } while (!new char[] { 'U', 'D', 'L', 'R' }.Contains(direction) || !Board.IsValidMove(CurrentTurn, direction));
+                TotalTurns++;
 
-            CurrentTurn.Move(direction);
-            Board.CollectGem(CurrentTurn);
-            TotalTurns++;
-            SwitchTurn();
+                direction = Char.ToUpper(Console.ReadKey().KeyChar);
+                var isValidMove = Board.IsValidMove(CurrentTurn, direction);
+                if (isValidMove)
+                {
+                    CurrentTurn.Move(direction);
+                    Board.CollectGem(CurrentTurn);
+                }
+                Console.WriteLine();
+                Board.Display();
+                SwitchTurn();
+            } while (!IsGameOver());
         }
         Board.Display();
         AnnounceWinner();
